@@ -1,5 +1,42 @@
 # @ark-ui/solid
 
+## [6.0.0-next.1] - 2026-10-06
+
+### Changed
+
+- Render indicator and control parts that sit inside a `button` or `label` as `span` instead of `div`. A `div` inside a
+  `button` or `label` is invalid HTML, since both only accept phrasing content. The parts now render `span`, matching
+  Base UI:
+  - `Accordion.ItemIndicator`, `Collapsible.Indicator`, `Popover.Indicator`, `Toggle.Indicator`
+  - `Select.Indicator`, `Select.ItemIndicator`, `Combobox.ItemIndicator`, `Listbox.ItemIndicator`
+  - `Menu.Indicator`, `Menu.ItemIndicator`, `NavigationMenu.ItemIndicator`
+  - `Checkbox.Control`, `Checkbox.Indicator`, `RadioGroup.ItemControl`, `SegmentGroup.ItemControl`
+  - `Clipboard.Indicator`, `Steps.Indicator`, `Splitter.ResizeTriggerIndicator`
+  - `Avatar.Root`, `Avatar.RootProvider`, `Tabs.Indicator`, `NumberInput.Scrubber` A `span` is `display: inline` by
+    default, so styles that relied on these parts being block-level need an explicit `display` (`block`, `flex` or
+    `inline-flex`). In React, refs to these parts are now typed `HTMLSpanElement`.
+- Render the same element for every part across frameworks.
+  - `AngleSlider.Marker` renders `span` instead of `div` in React, Solid and Vue, matching `Slider.Marker`.
+  - `AngleSlider.ValueText` renders `span` instead of `div` in React and Solid, matching every other `ValueText`.
+  - `Listbox.ItemText` renders `span` instead of `div` in React, Solid and Vue, matching `Select.ItemText` and
+    `Combobox.ItemText`.
+  - `Popover.Title` renders `h2` instead of `div` in React, Solid and Vue, matching Svelte and `Dialog.Title`, so screen
+    reader users can reach it with heading navigation. Without a CSS reset it picks up the browser's default heading
+    margins and font size. Use `render` for a different heading level. Styles that relied on the `span` parts being
+    block-level need an explicit `display`.
+
+### Fixed
+
+- Fix part types that named a different element than the one the part renders.
+  - React: the refs of `Clipboard.ValueText`, `ColorPicker.ValueText`, `Combobox.ItemText`, `Select.ItemText` and
+    `Slider.ValueText` are now `HTMLSpanElement`, `FloatingPanel.Title` is `HTMLHeadingElement`, and
+    `FileUpload.ItemPreview` is `HTMLDivElement`.
+  - Solid: `ColorPicker.ChannelSliderValueText` takes `span` props.
+  - Svelte: `TreeView.Tree` takes `div` props and `AngleSlider.ValueText` takes `span` props.
+  - Vue: `Drawer.Trigger`, `Drawer.CloseTrigger` and `PasswordInput.VisibilityTrigger` accept button attributes,
+    `PasswordInput.Input` accepts input attributes, and `PasswordInput.Label`, `SignaturePad.Label` and
+    `ColorPicker.ChannelSliderLabel` accept label attributes.
+
 ## [6.0.0-next.0] - 2026-10-05
 
 ### Changed
