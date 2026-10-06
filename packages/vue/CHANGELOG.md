@@ -1,5 +1,12 @@
 # @ark-ui/vue
 
+## [5.39.4] - 2026-10-06
+
+### Fixed
+
+- - **ColorPicker, Combobox, DatePicker, Dialog, Drawer, FloatingPanel, HoverCard, Menu, Popover, Select, Tooltip**: Fix
+    `Root` not declaring `enterComplete`. `usePresence` already emits it, so Vue warned that the event was undeclared.
+
 ## [5.39.3] - 2026-10-05
 
 ### Fixed
